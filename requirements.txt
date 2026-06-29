@@ -1,0 +1,12 @@
+# Core dependencies for group12_api.ipynb
+# Install with:  pip install -r requirements.txt
+
+gdeltdoc==1.12.0      # GDELT Doc 2.0 API wrapper (news article search)
+pandas==3.0.3         # data wrangling
+numpy==2.5.0          # numerical / simulated tweet data
+plotly==6.8.0         # interactive charts
+matplotlib==3.11.0    # plotting support
+tqdm==4.68.3          # progress bars for the API fetch loop
+
+# To run the notebook itself you also need Jupyter:
+#   pip install jupyter
