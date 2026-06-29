@@ -8,11 +8,26 @@
 
 ## 📋 Overview
 
-This repository accompanies a University of Copenhagen *Elementary Social Data Science* exam project (Group 12). The research question: **was journalistic coverage of immigration reactive to patterns in Twitter activity during Donald Trump's first presidency?**
-
-The companion paper ([`docs/ESDS-Exam-Group-12-Final.pdf`](docs/ESDS-Exam-Group-12-Final.pdf)) develops the literature review, research design, and a critical evaluation (feasibility, ethics, reliability, validity). The notebook in this repo is the **methodological outline** — it demonstrates *how* the data collection and analysis would be carried out and tests its feasibility, rather than presenting a finished empirical result.
+This repository accompanies a University of Copenhagen *Elementary Social Data Science* exam project (Group 12). It pairs a written research-design paper with a Python notebook that prototypes the data pipeline the paper proposes. The notebook in this repo is the **methodological outline** — it demonstrates *how* the data collection and analysis would be carried out and tests its feasibility, rather than presenting a finished empirical result.
 
 > **Note:** This is an outline / proof-of-concept. Because access to X's (Twitter) API was unavailable, the social-media side uses **simulated** tweet-volume data to validate the analysis approach. The news side uses real data from the GDELT API.
+
+## 📄 The Research Paper (summary)
+
+The accompanying paper develops the full research design. Its key elements:
+
+**Research question:** *Did Twitter discussions on immigration topics precede major news coverage during Donald Trump's first presidency (2017–2021)?* The motivation: Trump used Twitter to bypass traditional media and set the agenda directly, raising the question of whether journalism became *reactive* to social-media attention on immigration.
+
+- **Hypotheses:** H₀ — increases in Twitter discussion did *not* precede news coverage; H₁ — they *did*. The study would be pre-registered on the Open Science Framework to guard against selective reporting.
+- **Design:** A quantitative, **data-triangulation** approach combining two ready-made API data sources with one custom-made dataset:
+  - **News (GDELT 2.0 DOC API):** articles from Forbes, CNN, The New York Times, and The Washington Post, restricted to English / U.S. sources, filtered by keyword and word-proximity, deduplicated by title + domain.
+  - **Twitter (X API, Pro tier via `tweepy`):** tweets matching event-specific hashtags identified with the PM-HRec hashtag-mining framework, over one-month windows before/after each immigration-policy event.
+  - **Survey (custom-made / "enriched asking"):** a 5-point Likert survey of journalists and editors who worked at those outlets, recruited via LinkedIn, to capture their reflections on social media's influence on their reporting.
+- **Operationalization:** a "spike" in Twitter discussion = daily tweet volume exceeding a 7-day moving average by **more than two standard deviations** (anomaly detection); news response = the first noticeable rise in article volume. The temporal lead/lag between the two is the object of analysis (inspired by Shapiro & Hemphill's methodology).
+- **Sample-size justification:** "Planning for Precision" (95% CI, ±0.3 margin, sd ≈ 1.39) yields a target of **83 survey responses**, implying outreach to ~277 journalists at an assumed 30% response rate.
+- **Critical evaluation:** the paper weighs feasibility (LinkedIn outreach/anti-spam limits, X's ~$5,000/month Pro-tier cost), ethics, reliability, and validity (selection bias from non-probability LinkedIn sampling, recall bias over a ~10-year span), and proposes future extensions — an experimental design for causal inference, and a longitudinal comparison spanning the Trump and Biden presidencies.
+
+**This notebook implements a vertical slice of that design:** the real GDELT news-collection pipeline plus a *simulated* stand-in for the Twitter spike-detection step, demonstrating end-to-end feasibility.
 
 ## ✨ What it does
 
@@ -63,7 +78,6 @@ Run the cells top to bottom. The GDELT API requires **no API key**. The notebook
 ├── group12_api.ipynb      → the final analysis notebook (data collection → cleaning → spike detection → visualization)
 ├── requirements.txt       → Python dependencies
 ├── docs/
-│   ├── ESDS-Exam-Group-12-Final.pdf   → the full written paper
 │   └── articles-vs-tweets.png         → key output visualization
 ├── README.md
 └── LICENSE
