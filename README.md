@@ -39,7 +39,7 @@ The companion paper ([`docs/ESDS-Exam-Group-12-Final.pdf`](docs/ESDS-Exam-Group-
 
 ### Installation
 ```bash
-git clone https://github.com/<your-username>/gdelt-twitter-agenda-setting.git
+git clone https://github.com/Jakob-Bell/gdelt-twitter-agenda-setting.git
 cd gdelt-twitter-agenda-setting
 
 # create and activate a virtual environment
